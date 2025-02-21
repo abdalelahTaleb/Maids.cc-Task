@@ -1,0 +1,35 @@
+### 🟢 جلب جميع الكتب
+GET http://localhost:8081/api/books
+Accept: application/json
+
+### 🟢 جلب كتاب معين بواسطة ID
+GET http://localhost:8081/api/books/1
+Accept: application/json
+
+### 🟢 إضافة كتاب جديد
+POST http://localhost:8081/api/books
+Content-Type: application/json
+
+{
+  "title": "The Pragmatic Programmer",
+  "author": "Andrew Hunt & David Thomas",
+  "publicationYear": 1999,
+  "isbn": "978-0135957059",
+  "available": "true"
+}
+
+### 🟡 تحديث معلومات كتاب
+PUT http://localhost:8081/api/books/1
+Content-Type: application/json
+
+{
+  "title": "The Pragmatic Programmer - Updated Edition",
+  "author": "Andrew Hunt & David Thomas",
+  "publicationYear": 2023,
+  "isbn": "978-0135957059",
+   "available": "true"
+}
+
+### 🟠 حذف كتاب
+DELETE http://localhost:8081/api/books/6
+Accept: application/json

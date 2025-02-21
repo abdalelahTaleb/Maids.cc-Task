@@ -15,7 +15,7 @@ public class Patron {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     private String phoneNumber;
 
     // Getters and Setters

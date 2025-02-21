@@ -1,0 +1,33 @@
+### 📌 جلب جميع العملاء (Patrons)
+GET http://localhost:8081/api/patrons
+Accept: application/json
+
+### 📌 جلب عميل معين بالـ ID
+GET http://localhost:8081/api/patrons/1
+Accept: application/json
+
+### 📌 إضافة عميل جديد
+POST http://localhost:8081/api/patrons
+Content-Type: application/json
+
+{
+  "name": "Ali Al-Atale",
+  "email": "ali@examplee.com",
+  "phoneNumber": "0512375678",
+  "membershipDate": "2024-02-20"
+}
+
+### 📌 تحديث بيانات عميل معين (ID = 1)
+PUT http://localhost:8081/api/patrons/1
+Content-Type: application/json
+
+{
+  "name": "Ali Al-Atale (Updated)",
+  "email": "ali.new@example.com",
+  "phoneNumber": "0512345679",
+  "membershipDate": "2024-02-25"
+}
+
+### 📌 حذف عميل معين
+DELETE http://localhost:8081/api/patrons/18
+Accept: application/json

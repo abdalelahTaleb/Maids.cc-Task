@@ -22,6 +22,5 @@ public class BookDTO {
     @NotBlank(message = "ISBN cannot be empty")
     private String isbn;
 
-    @Min(value = 0, message = "Copies available cannot be negative")
-    private int copiesAvailable;
+    private boolean isAvailable; // 🟢 جديد: لمعرفة حالة توفر الكتاب
 }

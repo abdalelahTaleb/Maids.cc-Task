@@ -23,7 +23,6 @@ public class BorrowingRecordService {
     private final PatronRepository patronRepository;
     private final BorrowingRecordMapper borrowingRecordMapper;
 
-
     public BorrowingRecordService(BorrowingRecordRepository borrowingRecordRepository,
                                   BookRepository bookRepository,
                                   PatronRepository patronRepository,
@@ -52,8 +51,8 @@ public class BorrowingRecordService {
         Patron patron = patronRepository.findById(recordDTO.getPatronId())
                 .orElseThrow(() -> new NotFoundException("Patron not found with id " + recordDTO.getPatronId()));
 
-        // 🟠 التحقق مما إذا كان الكتاب متاحًا
-        if (book.getCopiesAvailable() <= 0) {
+        // 🔴 التحقق مما إذا كان الكتاب غير متاح
+        if (!book.isAvailable()) {
             throw new BookNotAvailableException("Book is currently unavailable for borrowing.");
         }
 
@@ -63,8 +62,8 @@ public class BorrowingRecordService {
         record.setPatron(patron);
         record.setBorrowingDate(LocalDate.now());
 
-        // 🔴 تقليل عدد النسخ المتاحة من الكتاب
-        book.setCopiesAvailable(book.getCopiesAvailable() - 1);
+        // 🔴 جعل الكتاب غير متاح بعد الاستعارة
+        book.setAvailable(false);
         bookRepository.save(book);
 
         BorrowingRecord savedRecord = borrowingRecordRepository.save(record);
@@ -81,9 +80,9 @@ public class BorrowingRecordService {
         // ✅ تحديد تاريخ الإرجاع
         record.setReturnDate(LocalDate.now());
 
-        // ✅ زيادة عدد النسخ المتاحة من الكتاب
+        // ✅ جعل الكتاب متاحًا بعد الإرجاع
         Book book = record.getBook();
-        book.setCopiesAvailable(book.getCopiesAvailable() + 1);
+        book.setAvailable(true);
         bookRepository.save(book);
 
         return borrowingRecordMapper.toDTO(borrowingRecordRepository.save(record));

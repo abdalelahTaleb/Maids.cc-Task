@@ -28,6 +28,8 @@ public class BorrowingRecordDTO {
     @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2}$", message = "Return date must be in format yyyy-MM-dd")
     private String returnDate;
 
+    private boolean isAvailable; // 🟢 جديد: لمعرفة ما إذا كان الكتاب متاحًا للاستعارة أم لا
+
     @AssertTrue(message = "Return date must be after borrowing date")
     public boolean isReturnDateValid() {
         if (returnDate == null || borrowingDate == null) {

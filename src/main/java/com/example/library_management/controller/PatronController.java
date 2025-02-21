@@ -6,6 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/patrons")
@@ -26,20 +29,20 @@ public class PatronController {
     // جلب مستفيد معين حسب ID
     @GetMapping("/{id}")
     public ResponseEntity<PatronDTO> getPatronById(@PathVariable Long id) {
-        return patronService.getPatronById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        Optional<PatronDTO> patronDTO = patronService.getPatronById(id);
+        return ResponseEntity.notFound().build();
     }
+
 
     // إضافة مستفيد جديد
     @PostMapping
-    public ResponseEntity<PatronDTO> addPatron(@RequestBody PatronDTO patronDTO) {
+    public ResponseEntity<PatronDTO> addPatron(@Valid @RequestBody PatronDTO patronDTO) {
         return ResponseEntity.ok(patronService.addPatron(patronDTO));
     }
 
     // تحديث مستفيد
     @PutMapping("/{id}")
-    public ResponseEntity<PatronDTO> updatePatron(@PathVariable Long id, @RequestBody PatronDTO patronDTO) {
+    public ResponseEntity<PatronDTO> updatePatron( @PathVariable Long id, @Valid @RequestBody PatronDTO patronDTO) {
         return ResponseEntity.ok(patronService.updatePatron(id, patronDTO));
     }
 

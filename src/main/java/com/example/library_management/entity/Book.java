@@ -22,9 +22,9 @@ public class Book {
     private String isbn;
 
     @Column(nullable = false)
-    private int copiesAvailable;
+    private boolean isAvailable = true; // 🟢 جديد: الحالة الافتراضية متاح
 
-    // Getters and Setters
+    // 🟢 Getters & Setters
     public Long getId() {
         return id;
     }
@@ -65,11 +65,11 @@ public class Book {
         this.isbn = isbn;
     }
 
-    public int getCopiesAvailable() {
-        return copiesAvailable;
+    public boolean isAvailable() {
+        return isAvailable;
     }
 
-    public void setCopiesAvailable(int copiesAvailable) {
-        this.copiesAvailable = copiesAvailable;
+    public void setAvailable(boolean available) {
+        isAvailable = available;
     }
 }
